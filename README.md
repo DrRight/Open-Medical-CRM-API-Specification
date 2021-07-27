@@ -59,7 +59,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 
 ## API 簡介
-本 API 規格是用於描述合作診所或第三方公司做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式件文。
+本 API 規格是用於描述合作診所或第三方公司(以下簡稱為使用者)做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式件文。
 
 使用標準 HTTP 回應代碼進行回應以指示錯誤。
 
@@ -69,16 +69,16 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 - [身分認證](#authentication)
 	- [定義](#authDefinition)
-	- [方式](#authMethod)
+	- [方法](#authMethod)
 	- [參數](#authParams)
 	- [回應代碼](#authHttpCodes)
 	- [回應資料](#authResult)
-- [病歷資料](#patientInfo)
-	- [定義](#patientInfoDefinition)
-	- [方式](#patientInfoMethod)
-	- [參數](#patientInfoParams)
-	- [回應代碼](#patientInfoHttpCodes)
-	- [回應資料值](#patientInfoResult)
+- [上傳病歷資料](#postPatientInfo)
+	- [定義](#postPIDefinition)
+	- [方式](#postPIMethod)
+	- [參數](#postPIParams)
+	- [回應代碼](#postPIHttpCodes)
+	- [回應資料值](#postPIResult)
 
 - [附錄 A: 修訂歷史](#revisionHistory)
 
@@ -90,15 +90,15 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 身分認證碼的有效期為 4小時，過期需要重新取得。
 
-#### <a name="authMethod"></a>方式
+#### <a name="authMethod"></a>方法
 Method: GET
 
-URL: https://HOST/id/<string:id>/auth_code/<string:auth_code>
+URL: https://HOST/id/{id}/auth_code/{auth_code}
 
 #### <a name="authParams"></a>參數
-id 為合作診所或第三方公司所擁有之唯一值，用來代表該單位，data type 為 string。
+id 為使用者所擁有之唯一值，用來代表該單位。
 
-auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得身分認證碼時使用，data type 為 string。
+auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使用。
 
 #### <a name="authHttpCodes"></a>回應代碼
 身分認證的回應代碼與其定義如下:
@@ -110,9 +110,48 @@ auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得�
 ```
 
 #### <a name="authResult"></a>回應資料
-身分認證的回應資料為一JSON物件，僅包含一鍵值對，定義如下:
+身分認證的回應資料為一JSON物件，僅包含 token 鍵值對，例如:
+```json
+{
+   "token": "sdDEqdw3Rcoje8Rb9265Gyrxfd3dJoevnY64Udrg6TgyHuJwSe34Rt"
+}
 ```
-Key: token，data type 為 string
-Value: 身分認證碼，data type 為 string
+
+## <a name="postPatientInfo"></a>上傳病歷資料
+
+#### <a name="postPIDefinition"></a>定義
+資料為使用者提供用來做
+
+身分認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
+
+身分認證碼的有效期為 4小時，過期需要重新取得。
+
+#### <a name="patientInfoMethod"></a>方法
+Method: POST
+
+URL: https://HOST/id/{id}/auth_code/{auth_code}
+
+#### <a name="postPIParams"></a>參數
+id 為合作診所或第三方公司所擁有之唯一值，用來代表該單位。
+
+auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得身分認證碼時使用。
+
+#### <a name="postPIHttpCodes"></a>回應代碼
+身分認證的回應代碼與其定義如下:
 ```
+200: success
+400: bad request
+401: wrong id or auth_code
+405: method not allowed
+```
+
+#### <a name="postPIResult"></a>回應資料
+身分認證的回應資料為一JSON物件，僅包含 token 鍵值對，例如:
+```json
+{
+   "token": "sdDEqdw3Rcoje8Rb9265Gyrxfd3dJoevnY64Udrg6TgyHuJwSe34Rt"
+}
+```
+
+
 
