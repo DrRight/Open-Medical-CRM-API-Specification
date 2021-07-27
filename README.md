@@ -26,7 +26,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 累計超過 5,000萬則醫療健康評價分析的經驗，取得與 Google 在醫療評價領域技術合作關係，亦為台灣唯一合作之軟體公司。
 
 2017.10：
-聘請[瀛睿律師事務所]( http://www.wiseteam.tw/)簡榮宗律師擔任法律顧問，守護各個服務環節的適法性。
+聘請[瀛睿律師事務所](http://www.wiseteam.tw)簡榮宗律師擔任法律顧問，守護各個服務環節的適法性。
 
 2017.11：
 推出全台首創之醫療精準關懷服務，協助診所業主 e 化經營醫病關係與改善醫療品質。
@@ -59,11 +59,11 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 
 ## API 簡介
-本API規格是用於描述合作診所或第三方公司做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式件文。
+本 API 規格是用於描述合作診所或第三方公司做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式件文。
 
 使用標準 HTTP 回應代碼進行回應以指示錯誤。
 
-所有資料傳遞與接收都是使用JSON物件方式呈現並且遵照JSON標準。
+所有資料傳遞與接收都是使用 JSON 物件方式呈現並且遵照 JSON 標準。
 
 ## 目錄
 
@@ -85,20 +85,22 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 ## <a name="authentication"></a>身分認證
 
-##### <a name="authDefinition"></a>定義
-身分認證的目的是用來認證使用者的身分，進行所有API呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
+#### <a name="authDefinition"></a>定義
+身分認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
 
-身分認證碼的有效期為4小時，過期需要重新取得。
+身分認證碼的有效期為 4小時，過期需要重新取得。
 
-##### <a name="auth method"></a>方式
+#### <a name="authMethod"></a>方式
 Method: GET
+
 URL: https://HOST/id/<string:id>/auth_code/<string:auth_code>
 
-##### <a name="auth params"></a>參數
-id 為合作診所或第三方公司所擁有之唯一值，用來代表該單位，data type為字串型別。
-auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得身分認證碼時使用，data type為string。
+#### <a name="authParams"></a>參數
+id 為合作診所或第三方公司所擁有之唯一值，用來代表該單位，data type 為 string。
 
-##### <a name="auth httpCodes"></a>回應代碼
+auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得身分認證碼時使用，data type 為 string。
+
+#### <a name="authHttpCodes"></a>回應代碼
 身分認證的回應代碼與其定義如下:
 ```
 200: success
@@ -107,10 +109,10 @@ auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得�
 405: method not allowed
 ```
 
-##### <a name="auth result"></a>回應資料
+#### <a name="authResult"></a>回應資料
 身分認證的回應資料為一JSON物件，僅包含一鍵值對，定義如下:
 ```
-Key: token，data type為string
-Value: 身分認證碼，data type為string
+Key: token，data type 為 string
+Value: 身分認證碼，data type 為 string
 ```
 
