@@ -59,7 +59,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 
 ## API 簡介
-本 API 規格是用於描述合作診所或第三方公司(以下簡稱為使用者)做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式件文。
+本 API 規格是用於描述合作診所或第三方公司(以下簡稱為使用者)做資料介接時，於開發對應功能API所需要之設計情境與目標，傳遞或接收資料時之格式文件。
 
 使用標準 HTTP 回應代碼進行回應以指示錯誤。
 
@@ -75,8 +75,9 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [回應資料](#authResult)
 - [上傳病歷資料](#postPatientInfo)
 	- [定義](#postPIDefinition)
-	- [方式](#postPIMethod)
+	- [方法](#postPIMethod)
 	- [參數](#postPIParams)
+	- [上傳資料值](#postPIData)
 	- [回應代碼](#postPIHttpCodes)
 	- [回應資料值](#postPIResult)
 
@@ -91,7 +92,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 身分認證碼的有效期為 4小時，過期需要重新取得。
 
 #### <a name="authMethod"></a>方法
-Method: GET
+Method: `GET`
 
 URL: https://HOST/id/{id}/auth_code/{auth_code}
 
@@ -120,21 +121,41 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 ## <a name="postPatientInfo"></a>上傳病歷資料
 
 #### <a name="postPIDefinition"></a>定義
-資料為使用者提供用來做
+病歷資料可用來做多種經營管理的績效分析，也可依需要使用在滿意度調查與患者關係管理上，若資料為敏感資料，必須在發送前做部分加密處理。
 
-身分認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
+所有資料皆符合一次性使用原則，不會保存。
 
-身分認證碼的有效期為 4小時，過期需要重新取得。
 
-#### <a name="patientInfoMethod"></a>方法
-Method: POST
+#### <a name="postPIMethod"></a>方法
+Method: `POST`
 
-URL: https://HOST/id/{id}/auth_code/{auth_code}
+URL: https://HOST/hospital/{hosp_id}/token/{token}/patient_info
+
 
 #### <a name="postPIParams"></a>參數
-id 為合作診所或第三方公司所擁有之唯一值，用來代表該單位。
+hosp_id 為該病歷資料所保有之診所id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
 
-auth_code 為合作診所或第三方公司所擁有之唯一值，用來取得身分認證碼時使用。
+token 為先前取得的身分認證碼。
+
+
+#### <a name="postPIData"></a>上傳資料值
+上傳資料值為一 JSON 物件，僅包含 patients 鍵值對，其值為一陣列，可包含多筆病歷資料。
+
+每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷資料。
+```json
+{
+   "patients": [
+   	{
+		"patient_id": "000000001",
+		"name": "Cindy Pool",
+		"sex": "F",
+		""
+	
+	}
+   ]
+}
+```
+
 
 #### <a name="postPIHttpCodes"></a>回應代碼
 身分認證的回應代碼與其定義如下:
