@@ -15,7 +15,8 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
  
 我們希望透過這個服務，讓整個社會產生更多的好醫師與好病患。醫病關係能不再緊張，民眾也能夠接受到更好的醫療品質照護 !
 
-公司里程碑
+#### 公司里程碑
+
 2016.01：
 公司團隊成立，致力協助牙醫師來經營醫病互動關係。
 
@@ -144,13 +145,17 @@ token 為先前取得的身分認證碼。
 每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷資料。
 ```json
 {
-   "patients": [
+   "patients" : [
    	{
-		"patient_id": "000000001",
-		"name": "Cindy Pool",
-		"sex": "F",
-		""
-	
+		"patient_id" : "000000001",
+		"name" : "Cindy Pool",
+		"sex" : "F",
+		"birthday" : "1971-03-27",
+		"phone" : "0912345678",
+		"first_visit_date" : "2019-07-12",
+		"check_in_datetime" : "2021-06-03 10:23",
+		"check_out_datetime" : "2021-06-03 11:01",
+		"doctor_name" : "Roger Kingdom"
 	}
    ]
 }
@@ -158,21 +163,18 @@ token 為先前取得的身分認證碼。
 
 
 #### <a name="postPIHttpCodes"></a>回應代碼
-身分認證的回應代碼與其定義如下:
+上傳病歷資料的回應代碼與其定義如下:
 ```
-200: success
+201: success
 400: bad request
-401: wrong id or auth_code
+401: unauthorized
+404: wrong hosp_id
 405: method not allowed
 ```
 
 #### <a name="postPIResult"></a>回應資料
-身分認證的回應資料為一JSON物件，僅包含 token 鍵值對，例如:
-```json
-{
-   "token": "sdDEqdw3Rcoje8Rb9265Gyrxfd3dJoevnY64Udrg6TgyHuJwSe34Rt"
-}
-```
+上傳病歷資料無回應資料
+
 
 
 
