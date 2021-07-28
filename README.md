@@ -2,7 +2,7 @@
 
 #### Version 1.0.0
 
-本文件根據[The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)進行授權。
+本文件根據 [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) 進行授權。
 
 ## 公司簡介
 Since 2016，Dr. Right 是由精品客服、資深醫師、與數據分析師所組成的團隊。協助醫療院所第一時間與患者關懷溝通，改善院所執行流程、進而提升營運績效，使得醫病雙方都能夠從中受益的 CRM 服務。我們期許能用創新技術與高端服務思維，來打造美好的醫病互動關係。
@@ -21,7 +21,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 公司團隊成立，致力協助牙醫師來經營醫病互動關係。
 
 2017.06：
-推出醫療輿情分析網站[www.drright.me](https://www.drright.me)，累計服務超過 500 萬次消費者尋醫需求，以及 20 萬次的醫病媒合。
+推出醫療輿情分析網站 [www.drright.me](https://www.drright.me)，累計服務超過 500 萬次消費者尋醫需求，以及 20 萬次的醫病媒合。
 
 2017.09：
 累計超過 5,000 萬則醫療健康評價分析的經驗，取得與 Google 在醫療評價領域技術合作關係，亦為台灣唯一合作之軟體公司。
@@ -56,7 +56,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 2021.01：
 參與台灣經濟研究院執行之[社會創新平台](https://si.taiwan.gov.tw/)，成為社會創新組織持續為醫病和諧關係努力，今年起亦將盈餘之 10% 捐作社會公益使命。
 
-更多資訊，請參考[Dr.Right官網](https://www.drright.club/)
+更多資訊，請參考 [Dr.Right 官網](https://www.drright.club/)
 
 
 ## API 簡介
