@@ -81,7 +81,13 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料值](#postPIData)
 	- [回應代碼](#postPIHttpCodes)
 	- [回應資料值](#postPIResult)
-
+- [上傳評論資料](#postReviews)
+	- [定義](#postReviewsDefinition)
+	- [方法](#postReviewsMethod)
+	- [參數](#postReviewsParams)
+	- [上傳資料值](#postReviewsData)
+	- [回應代碼](#postReviewsHttpCodes)
+	- [回應資料值](#postReviewsResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -142,7 +148,9 @@ token 為先前取得的身分認證碼。
 #### <a name="postPIData"></a>上傳資料值
 上傳資料值為一 JSON 物件，僅包含 patients 鍵值對，其值為一陣列，可包含多筆病歷資料。
 
-每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷資料。
+每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷內容。
+
+例如:
 ```json
 {
    "patients" : [
@@ -175,6 +183,69 @@ token 為先前取得的身分認證碼。
 #### <a name="postPIResult"></a>回應資料
 上傳病歷資料無回應資料
 
+
+## <a name="postReviews"></a>上傳評論資料
+
+#### <a name="postReviewsDefinition"></a>定義
+評論資料的來源可為線上取得，如: Facebook 與 Google 等社群媒體，也可為線下取得，如透過即時滿意度調查系統或問卷等。
+
+評論資料可用來做多種經營管理的績效分析。
+
+評論不論正、負評，皆可委託由 Dr. Right 專業的醫病關係客服人員處理，處理進度與結果由 [取得評論處理結果](#getReviewResult) API 獲得。
+
+所有資料皆依據與使用者約定方式處理。
+
+#### <a name="postReviewsMethod"></a>方法
+Method: `POST`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/reviews
+
+#### <a name="postReviewsParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="postReviewsData"></a>上傳資料值
+上傳資料值為一 JSON 物件，僅包含 reviews 鍵值對，其值為一陣列，可包含多筆評論資料。
+
+每筆評論資料皆為一 JSON 物件，必須包含完整的評論內容。
+
+例如:
+```json
+{
+   "reviews" : [
+   	{
+		"source" : "Facebook",
+		"author" : "Irene Bay",
+		"rating" : "5",
+		"create_datetime" : "2021-07-26 14:32",
+		"content" : "The service is excellent! Especially the assistant treated me like her family members. Awesome!"
+	},
+	{
+		"source" : "Survey",
+		"author" : "Vicky Rock",
+		"rating" : "1",
+		"create_datetime" : "2021-07-26 14:32",
+		"content" : "Bad service, doctor was very rude!!",
+		"doctor" : "Philips White"
+	}
+   ]
+}
+```
+
+
+#### <a name="postReviewsHttpCodes"></a>回應代碼
+上傳評論資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="postReviewsResult"></a>回應資料
+上傳評論資料無回應資料
 
 
 
