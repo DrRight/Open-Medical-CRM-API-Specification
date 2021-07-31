@@ -70,7 +70,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 ## 目錄
 
-- [身分認證](#authentication)
+- [資安認證](#authentication)<!--身分認證-->
 	- [定義](#authDefinition)
 	- [方法](#authMethod)
 	- [參數](#authParams)
@@ -97,13 +97,20 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料](#getRRData)
 	- [回應代碼](#getRRHttpCodes)
 	- [回應資料](#getRRResult)
+- [上傳約診提醒資料](#postAppointmentReminder)
+	- [定義](#postARDefinition)
+	- [方法](#postARMethod)
+	- [參數](#postARParams)
+	- [上傳資料](#postARData)
+	- [回應代碼](#postARHttpCodes)
+	- [回應資料](#postARResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
-## <a name="authentication"></a>身分認證
+## <a name="authentication"></a>資安認證
 
 #### <a name="authDefinition"></a>定義
-身分認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
+資安認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
 
 身分認證碼的有效期為 4 小時，過期需要重新取得。
 
@@ -118,7 +125,7 @@ id 為使用者所擁有之唯一值，用來代表該單位。
 auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使用。
 
 #### <a name="authHttpCodes"></a>回應代碼
-身分認證的回應代碼與其定義如下:
+資安認證的回應代碼與其定義如下:
 ```
 200: success
 400: bad request
@@ -127,7 +134,7 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 ```
 
 #### <a name="authResult"></a>回應資料
-身分認證的回應資料為一 JSON 物件，僅包含 token 鍵值對，例如:
+資安認證的回應資料為一 JSON 物件，僅包含 token 鍵值對，例如:
 ```json
 {
    "token": "sdDEqdw3Rcoje8Rb9265Gyrxfd3dJoevnY64Udrg6TgyHuJwSe34Rt"
@@ -334,6 +341,97 @@ review_id 為先前上傳評論資料時取得的評論 id。
 	}
 }
 ```
+
+
+
+## <a name="postAppointmentReminder"></a>上傳約診提醒資料
+
+#### <a name="postARDefinition"></a>定義
+約診提醒的作用是用來善意的提醒病患，其下次看診當天的報到時間、地點與看診時應注意的事項等資訊。
+
+約診提醒可以透過 Dr. Right 的簡訊服務來發送。
+
+所有資料皆依據與使用者約定方式處理。
+
+#### <a name="postARMethod"></a>方法
+Method: `POST`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/ap_reminder
+
+#### <a name="postARParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="postARData"></a>上傳資料
+資料值為一 JSON 物件，僅包含 reminders 鍵值對，其值為一陣列，可包含多筆約診資料。
+
+每筆約診資料皆為一 JSON 物件，必須包含完整的約診內容。
+
+例如:
+```json
+{
+   "reminders" : [
+   	{
+		"patient" : "張皓",
+		"appointment_datetime" : "2021-08-13 19:00",
+		"send_datetime" : "2021-08-12 09:30",
+		"doctor_name" : "李文政"
+			
+		"special_reminder" : "請攜帶費用"
+	},
+	{
+		"source" : "Survey",
+		"author" : "黃美涓",
+		"rating" : "1",
+		"create_datetime" : "2021-07-24 11:36",
+		"content" : "有打去問.到現場掛 等了快2小時",
+		"doctor" : "李文政"
+	}
+   ]
+}
+```
+
+
+#### <a name="postReviewsHttpCodes"></a>回應代碼
+上傳評論資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="postReviewsResult"></a>回應資料
+上傳評論資料的回應資料，為一 JSON 物件，僅包含 results 鍵值對，其值為一陣列，包含多筆評論資料的回應資料。
+
+每筆回應資料，皆為一 JSON 物件，包含其評論內容中的 source/author/create_datetime 外，在加上其 id。
+
+id 為未來查詢時使用，請妥善保存。
+
+例如:
+```json
+{
+   "results" : [
+   	{
+		"source" : "Facebook",
+		"author" : "Irene Huang",
+		"create_datetime" : "2021-07-26 14:32",
+		"id" : "dD54Ddt7Yxe#dfu$e32QaFguyuRew43Mhe"
+	},
+	{
+		"source" : "Survey",
+		"author" : "黃美涓",
+		"create_datetime" : "2021-07-24 11:36",
+		"id" : "r4dEihR53Wshi7IqaE41wPli9rFex1Erts"
+	}
+   ]
+}
+```
+
+
+
 
 
 
