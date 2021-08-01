@@ -104,6 +104,13 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料](#postARData)
 	- [回應代碼](#postARHttpCodes)
 	- [回應資料](#postARResult)
+- [取得約診病患回覆結果](#getAppointmentReminderResult)
+	- [定義](#getARRDefinition)
+	- [方法](#getARRMethod)
+	- [參數](#getARRParams)
+	- [上傳資料](#getARRData)
+	- [回應代碼](#getARRHttpCodes)
+	- [回應資料](#getARRResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -428,6 +435,65 @@ id 為未來查詢時使用，請妥善保存。
 }
 ```
 
+
+
+
+
+
+
+## <a name="getAppointmentReminderResult"></a>取得約診病患回覆結果
+
+#### <a name="getARRDefinition"></a>定義
+上傳約診提醒資料後，以此 API 取得病患的回覆結果。
+
+所有資料皆依據與使用者約定方式處理。
+
+#### <a name="getARRMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/ap_reminder/{reminder_id}/result/
+
+#### <a name="getARRParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+reminder_id 為先前上傳約診提醒資料時取得的約診提醒 id。
+
+#### <a name="getARRData"></a>上傳資料
+取得約診病患回覆結果無上傳資料
+
+#### <a name="getARRHttpCodes"></a>回應代碼
+取得約診病患回覆結果的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getARRResult"></a>回應資料
+取得約診病患回覆結果的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此約診提醒的處理狀態與病患的回覆結果。
+
+其中 patient_reply 為病患的回覆結果，共有以下二種可能值:
+```
+OK: 病患以確認同意此約診資訊
+Cancle: 病患取消約診
+```
+
+例如:
+```json
+{
+   "result" : {
+		"status" : "Done",
+		"id" : "dD54Dde8lgR420Hv46Rt2zoeRygh387Thd",
+		"patient_id" : "000005439",
+		"appointment_datetime" : "2021-08-13 19:00",
+		"patient_reply" : "OK"
+	}
+}
+```
 
 
 
