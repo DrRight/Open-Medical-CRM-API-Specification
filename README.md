@@ -374,27 +374,27 @@ token 為先前取得的身分認證碼。
    "reminders" : [
    	{
 		"patient" : "張皓",
+		"patient_id" : "000005439",
 		"appointment_datetime" : "2021-08-13 19:00",
-		"send_datetime" : "2021-08-12 09:30",
-		"doctor_name" : "李文政"
-			
-		"special_reminder" : "請攜帶費用"
+		"send_msg_datetime" : "2021-08-12 09:30",
+		"doctor_name" : "李文政",
+		"special_reminder" : "請攜帶矯正費用 15,000 圓"
 	},
 	{
-		"source" : "Survey",
-		"author" : "黃美涓",
-		"rating" : "1",
-		"create_datetime" : "2021-07-24 11:36",
-		"content" : "有打去問.到現場掛 等了快2小時",
-		"doctor" : "李文政"
+		"patient" : "林語文",
+		"patient_id" : "000010221",
+		"appointment_datetime" : "2021-08-13 20:00",
+		"send_msg_datetime" : "2021-08-12 09:30",
+		"doctor_name" : "黃清清",
+		"special_reminder" : ""
 	}
    ]
 }
 ```
 
 
-#### <a name="postReviewsHttpCodes"></a>回應代碼
-上傳評論資料的回應代碼與其定義如下:
+#### <a name="postARHttpCodes"></a>回應代碼
+上傳約診提醒資料的回應代碼與其定義如下:
 ```
 201: success
 400: bad request
@@ -403,10 +403,10 @@ token 為先前取得的身分認證碼。
 405: method not allowed
 ```
 
-#### <a name="postReviewsResult"></a>回應資料
-上傳評論資料的回應資料，為一 JSON 物件，僅包含 results 鍵值對，其值為一陣列，包含多筆評論資料的回應資料。
+#### <a name="postARResult"></a>回應資料
+上傳約診提醒資料的回應資料，為一 JSON 物件，僅包含 results 鍵值對，其值為一陣列，包含多筆約診提醒資料的回應資料。
 
-每筆回應資料，皆為一 JSON 物件，包含其評論內容中的 source/author/create_datetime 外，在加上其 id。
+每筆回應資料，皆為一 JSON 物件，包含其約診提醒資料內容中的 patient_id/appointment_datetime 外，在加上其 id。
 
 id 為未來查詢時使用，請妥善保存。
 
@@ -415,16 +415,14 @@ id 為未來查詢時使用，請妥善保存。
 {
    "results" : [
    	{
-		"source" : "Facebook",
-		"author" : "Irene Huang",
-		"create_datetime" : "2021-07-26 14:32",
-		"id" : "dD54Ddt7Yxe#dfu$e32QaFguyuRew43Mhe"
+		"patient_id" : "000005439",
+		"appointment_datetime" : "2021-08-13 19:00",
+		"id" : "dD54Dde8lgR420Hv46Rt2zoeRygh387Thd"
 	},
 	{
-		"source" : "Survey",
-		"author" : "黃美涓",
-		"create_datetime" : "2021-07-24 11:36",
-		"id" : "r4dEihR53Wshi7IqaE41wPli9rFex1Erts"
+		"patient_id" : "000010221",
+		"appointment_datetime" : "2021-08-13 20:00",
+		"id" : "3Rtg63Jipdhi7IqaE41wPli9rFextR53Es"
 	}
    ]
 }
