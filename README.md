@@ -83,6 +83,13 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料](#postPIData)
 	- [回應代碼](#postPIHttpCodes)
 	- [回應資料](#postPIResult)
+- [上傳看診資料](#postOperationInfo)
+	- [定義](#postODefinition)
+	- [方法](#postOMethod)
+	- [參數](#postOParams)
+	- [上傳資料](#postOData)
+	- [回應代碼](#postOHttpCodes)
+	- [回應資料](#postOResult)
 - [上傳評論資料](#postReviews)
 	- [定義](#postReviewsDefinition)
 	- [方法](#postReviewsMethod)
@@ -111,6 +118,14 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料](#getARRData)
 	- [回應代碼](#getARRHttpCodes)
 	- [回應資料](#getARRResult)
+- [取得滿意度分析資料](#getClinicSatisfaction)
+	- [定義](#getCSDefinition)
+	- [方法](#getCSMethod)
+	- [參數](#getCSParams)
+	- [上傳資料](#getCSData)
+	- [回應代碼](#getCSHttpCodes)
+	- [回應資料](#getCSResult)
+
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -207,6 +222,65 @@ token 為先前取得的身分認證碼。
 上傳病歷資料無回應資料
 
 
+
+
+
+
+
+
+
+## <a name="postOperationInfo"></a>上傳看診資料
+
+#### <a name="postODefinition"></a>定義
+看診資料可用來做多種經營管理的績效分析，也可依需要使用在滿意度調查與患者關係管理上，若資料為敏感資料，必須在發送前做部分加密處理。
+
+所有資料皆符合一次性使用原則，不會保存。
+
+
+#### <a name="postOMethod"></a>方法
+Method: `POST`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/operation_data
+
+
+#### <a name="postOParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+
+#### <a name="postOData"></a>上傳資料
+上傳看診資料值為一 JSON 物件，僅包含 operation 鍵值對，其值為一陣列，可包含多筆病歷資料。
+
+每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷內容。
+
+例如:
+```json
+{
+   "operation" : [
+   	{
+		"patient_id" : "000000001",
+		"name" : "Cindy Pool",
+		"check_in_datetime" : "2021-07-29 10:23",
+		"check_out_datetime" : "2021-07-29 11:11",
+		"doctor_name" : "Roger Kingdom"
+	}
+   ]
+}
+```
+
+#### <a name="postOHttpCodes"></a>回應代碼
+上傳看診資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="postOResult"></a>回應資料
+上傳看診資料無回應資料
 
 
 ## <a name="postReviews"></a>上傳評論資料
@@ -436,11 +510,6 @@ id 為未來查詢時使用，請妥善保存。
 ```
 
 
-
-
-
-
-
 ## <a name="getAppointmentReminderResult"></a>取得約診病患回覆結果
 
 #### <a name="getARRDefinition"></a>定義
@@ -494,6 +563,73 @@ Cancle: 病患取消約診
 	}
 }
 ```
+
+## <a name="getClinicSatisfaction"></a>取得滿意度分析資料
+
+#### <a name="getCSDefinition"></a>定義
+從病患的看診回饋與約診的回覆狀況中，可以抽絲剝繭了解到病患對診所或是各個醫師的認同狀態。
+
+因此滿意度是在經營診所非常重要的指標之一。
+
+我們依據上傳的各項資料，在搭配我們開發的滿意度權重與平衡最佳化演算法做計算與分析，就可以得到診所與醫師的滿意度分項資料。
+
+#### <a name="getCSMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/clinic_satisfaction/result/
+
+#### <a name="getCSParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="getCSData"></a>上傳資料
+取得滿意度分析資料無上傳資料
+
+#### <a name="getCSHttpCodes"></a>回應代碼
+取得滿意度分析資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getCSResult"></a>回應資料
+取得滿意度分析資料的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此診所與醫師的滿意度分項資料。
+
+例如:
+```json
+{
+   "result" : {
+		"total" : "81.3",
+		"environment" : "86.3",
+		"facility" : "78.8",
+		"receptionist" : "57.2",
+		"assistant" : "82.8",
+		"appointment" : "88.4",
+		"Endodontics" : "75.2",
+		"Orthodontics" : "65.3",
+		"Prosthetics" : "81.1",
+		"Crowns" : "77.8",
+		"Implants" : "67.7",
+		"Whitening" : "88.2", 
+		"Cleaning" : "82.9",
+		"doctor" : "70.1", 
+		"黃清清" : "65.3",
+		"李文政" : "78.5",
+		"余承瑜" : "71.8",
+		"黃凱" : "59.9",
+		"張藝雯" : "69.5"
+	}
+}
+```
+
+
+
+
+
 
 
 
