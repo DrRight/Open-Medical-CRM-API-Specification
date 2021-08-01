@@ -118,6 +118,13 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [上傳資料](#getARRData)
 	- [回應代碼](#getARRHttpCodes)
 	- [回應資料](#getARRResult)
+- [取得約診分析資料](#getAppointmentAnalysisResult)
+	- [定義](#getAARDefinition)
+	- [方法](#getAARMethod)
+	- [參數](#getAARParams)
+	- [上傳資料](#getAARData)
+	- [回應代碼](#getAARHttpCodes)
+	- [回應資料](#getAARResult)
 - [取得滿意度分析資料](#getClinicSatisfaction)
 	- [定義](#getCSDefinition)
 	- [方法](#getCSMethod)
@@ -199,8 +206,7 @@ token 為先前取得的身分認證碼。
 		"birthday" : "1971-03-27",
 		"phone" : "0912345678",
 		"first_visit_date" : "2019-07-12",
-		"check_in_datetime" : "2021-06-03 10:23",
-		"check_out_datetime" : "2021-06-03 11:01",
+		"visit_times" : "5",
 		"doctor_name" : "Roger Kingdom"
 	}
    ]
@@ -220,12 +226,6 @@ token 為先前取得的身分認證碼。
 
 #### <a name="postPIResult"></a>回應資料
 上傳病歷資料無回應資料
-
-
-
-
-
-
 
 
 
@@ -563,6 +563,75 @@ Cancle: 病患取消約診
 	}
 }
 ```
+
+
+
+
+
+
+
+## <a name="getAppointmentAnalysisResult"></a>取得病患回診分析資料
+
+#### <a name="getAARDefinition"></a>定義
+病患回診的狀況，可以看成是病患對診所整體的認同度指標，對診所來說是極具重要性的經營指標之一。
+
+我們依據上傳的各項資料，並配合我們獨家的回診率演算法做統計分析，就可以得到回診率的分項分析資料。
+
+#### <a name="getAARMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/appointmant_analysis/result/
+
+#### <a name="getAARParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="getAARData"></a>上傳資料
+取得病患回診分析資料無上傳資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含統計分析的開始與結束月份。
+
+例如:
+```json
+{
+   "period" : {
+		"start" : "2019/01",
+		"end" : "2019/12",
+	}
+}
+```
+
+#### <a name="getAARHttpCodes"></a>回應代碼
+取得病患回診分析資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getAARResult"></a>回應資料
+取得病患回診分析資料的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此診所的病患回診分析資料。
+
+例如:
+```json
+{
+   "result" : {
+		"total" : "66.3",
+		"changed" : "54.2",
+		"assigned" : "76.6",
+		"reminder_cancled" : "44.1",
+		"cancled" : "32.9",
+		"黃清清" : "67.3",
+		"李文政" : "76.5",
+		"余承瑜" : "70.2",
+		"黃凱" : "53.2",
+		"張藝雯" : "66.4",
+	}
+}
+```
+
+
 
 ## <a name="getClinicSatisfaction"></a>取得滿意度分析資料
 
