@@ -700,7 +700,11 @@ token 為先前取得的身分認證碼。
 ```
 
 
+## <a name="revisionHistory"></a>附錄 A: 修訂歷史
 
+版本 | 日期 | 注解
+---|:---|:---
+1.0.0   | 2021-07-30 | Open Medical CRM API 規格首次釋出
 
 
 
