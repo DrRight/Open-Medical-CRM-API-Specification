@@ -76,56 +76,56 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [參數](#authParams)
 	- [回應代碼](#authHttpCodes)
 	- [回應資料](#authResult)
-- [上傳病歷資料](#postPatientInfo)
+- [匯入病歷資料](#postPatientInfo)
 	- [定義](#postPIDefinition)
 	- [方法](#postPIMethod)
 	- [參數](#postPIParams)
 	- [上傳資料](#postPIData)
 	- [回應代碼](#postPIHttpCodes)
 	- [回應資料](#postPIResult)
-- [上傳看診資料](#postOperationInfo)
+- [匯入看診資料](#postOperationInfo)
 	- [定義](#postODefinition)
 	- [方法](#postOMethod)
 	- [參數](#postOParams)
 	- [上傳資料](#postOData)
 	- [回應代碼](#postOHttpCodes)
 	- [回應資料](#postOResult)
-- [上傳評論資料](#postReviews)
+- [匯入評論資料](#postReviews)
 	- [定義](#postReviewsDefinition)
 	- [方法](#postReviewsMethod)
 	- [參數](#postReviewsParams)
 	- [上傳資料](#postReviewsData)
 	- [回應代碼](#postReviewsHttpCodes)
 	- [回應資料](#postReviewsResult)
-- [取得評論處理結果](#getReviewResult)
+- [匯出評論處理結果](#getReviewResult)
 	- [定義](#getRRDefinition)
 	- [方法](#getRRMethod)
 	- [參數](#getRRParams)
 	- [上傳資料](#getRRData)
 	- [回應代碼](#getRRHttpCodes)
 	- [回應資料](#getRRResult)
-- [上傳約診提醒資料](#postAppointmentReminder)
+- [匯入約診提醒資料](#postAppointmentReminder)
 	- [定義](#postARDefinition)
 	- [方法](#postARMethod)
 	- [參數](#postARParams)
 	- [上傳資料](#postARData)
 	- [回應代碼](#postARHttpCodes)
 	- [回應資料](#postARResult)
-- [取得約診病患回覆結果](#getAppointmentReminderResult)
+- [匯出約診病患回覆結果](#getAppointmentReminderResult)
 	- [定義](#getARRDefinition)
 	- [方法](#getARRMethod)
 	- [參數](#getARRParams)
 	- [上傳資料](#getARRData)
 	- [回應代碼](#getARRHttpCodes)
 	- [回應資料](#getARRResult)
-- [取得約診分析資料](#getAppointmentAnalysisResult)
+- [匯出約診分析資料](#getAppointmentAnalysisResult)
 	- [定義](#getAARDefinition)
 	- [方法](#getAARMethod)
 	- [參數](#getAARParams)
 	- [上傳資料](#getAARData)
 	- [回應代碼](#getAARHttpCodes)
 	- [回應資料](#getAARResult)
-- [取得滿意度分析資料](#getClinicSatisfaction)
+- [匯出滿意度分析資料](#getClinicSatisfaction)
 	- [定義](#getCSDefinition)
 	- [方法](#getCSMethod)
 	- [參數](#getCSParams)
@@ -170,7 +170,7 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 }
 ```
 
-## <a name="postPatientInfo"></a>上傳病歷資料
+## <a name="postPatientInfo"></a>匯入病歷資料
 
 #### <a name="postPIDefinition"></a>定義
 病歷資料可用來做多種經營管理的績效分析，也可依需要使用在滿意度調查與患者關係管理上，若資料為敏感資料，必須在發送前做部分加密處理。
@@ -229,7 +229,7 @@ token 為先前取得的身分認證碼。
 
 
 
-## <a name="postOperationInfo"></a>上傳看診資料
+## <a name="postOperationInfo"></a>匯入看診資料
 
 #### <a name="postODefinition"></a>定義
 看診資料可用來做多種經營管理的績效分析，也可依需要使用在滿意度調查與患者關係管理上，若資料為敏感資料，必須在發送前做部分加密處理。
@@ -283,7 +283,7 @@ token 為先前取得的身分認證碼。
 上傳看診資料無回應資料
 
 
-## <a name="postReviews"></a>上傳評論資料
+## <a name="postReviews"></a>匯入評論資料
 
 #### <a name="postReviewsDefinition"></a>定義
 評論資料的來源可為線上取得，如: Facebook 與 Google 等社群媒體，也可為線下取得，如透過即時滿意度調查系統或問卷等。
@@ -371,7 +371,7 @@ id 為未來查詢時使用，請妥善保存。
 ```
 
 
-## <a name="getReviewResult"></a>取得評論處理結果
+## <a name="getReviewResult"></a>匯出評論處理結果
 
 #### <a name="getRRDefinition"></a>定義
 上傳評論資料後，以此 API 取得後續的處理狀態與結果。
@@ -425,7 +425,7 @@ review_id 為先前上傳評論資料時取得的評論 id。
 
 
 
-## <a name="postAppointmentReminder"></a>上傳約診提醒資料
+## <a name="postAppointmentReminder"></a>匯入約診提醒資料
 
 #### <a name="postARDefinition"></a>定義
 約診提醒的作用是用來善意的提醒病患，其下次看診當天的報到時間、地點與看診時應注意的事項等資訊。
@@ -510,7 +510,7 @@ id 為未來查詢時使用，請妥善保存。
 ```
 
 
-## <a name="getAppointmentReminderResult"></a>取得約診病患回覆結果
+## <a name="getAppointmentReminderResult"></a>匯出約診病患回覆結果
 
 #### <a name="getARRDefinition"></a>定義
 上傳約診提醒資料後，以此 API 取得病患的回覆結果。
@@ -570,7 +570,7 @@ Cancle: 病患取消約診
 
 
 
-## <a name="getAppointmentAnalysisResult"></a>取得病患回診分析資料
+## <a name="getAppointmentAnalysisResult"></a>匯出病患回診分析資料
 
 #### <a name="getAARDefinition"></a>定義
 病患回診的狀況，可以看成是病患對診所整體的認同度指標，對診所來說是極具重要性的經營指標之一。
@@ -635,7 +635,7 @@ token 為先前取得的身分認證碼。
 
 
 
-## <a name="getClinicSatisfaction"></a>取得滿意度分析資料
+## <a name="getClinicSatisfaction"></a>匯出滿意度分析資料
 
 #### <a name="getCSDefinition"></a>定義
 從病患的看診回饋與約診的回覆狀況中，可以抽絲剝繭了解到病患對診所或是各個醫師的認同狀態。
