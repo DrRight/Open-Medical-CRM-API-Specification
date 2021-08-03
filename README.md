@@ -80,35 +80,35 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [定義](#postPIDefinition)
 	- [方法](#postPIMethod)
 	- [參數](#postPIParams)
-	- [上傳資料](#postPIData)
+	- [匯入資料](#postPIData)
 	- [回應代碼](#postPIHttpCodes)
 	- [回應資料](#postPIResult)
 - [匯入看診資料](#postOperationInfo)
 	- [定義](#postODefinition)
 	- [方法](#postOMethod)
 	- [參數](#postOParams)
-	- [上傳資料](#postOData)
+	- [匯入資料](#postOData)
 	- [回應代碼](#postOHttpCodes)
 	- [回應資料](#postOResult)
 - [匯入評論資料](#postReviews)
 	- [定義](#postReviewsDefinition)
 	- [方法](#postReviewsMethod)
 	- [參數](#postReviewsParams)
-	- [上傳資料](#postReviewsData)
+	- [匯入資料](#postReviewsData)
 	- [回應代碼](#postReviewsHttpCodes)
 	- [回應資料](#postReviewsResult)
 - [匯出評論處理結果](#getReviewResult)
 	- [定義](#getRRDefinition)
 	- [方法](#getRRMethod)
 	- [參數](#getRRParams)
-	- [上傳資料](#getRRData)
+	- [匯入資料](#getRRData)
 	- [回應代碼](#getRRHttpCodes)
 	- [回應資料](#getRRResult)
 - [匯入約診提醒資料](#postAppointmentReminder)
 	- [定義](#postARDefinition)
 	- [方法](#postARMethod)
 	- [參數](#postARParams)
-	- [上傳資料](#postARData)
+	- [匯入資料](#postARData)
 	- [回應代碼](#postARHttpCodes)
 	- [回應資料](#postARResult)
 - [匯出約診病患回覆結果](#getAppointmentReminderResult)
@@ -122,14 +122,14 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [定義](#getAARDefinition)
 	- [方法](#getAARMethod)
 	- [參數](#getAARParams)
-	- [上傳資料](#getAARData)
+	- [匯入資料](#getAARData)
 	- [回應代碼](#getAARHttpCodes)
 	- [回應資料](#getAARResult)
 - [匯出滿意度分析資料](#getClinicSatisfaction)
 	- [定義](#getCSDefinition)
 	- [方法](#getCSMethod)
 	- [參數](#getCSParams)
-	- [上傳資料](#getCSData)
+	- [匯入資料](#getCSData)
 	- [回應代碼](#getCSHttpCodes)
 	- [回應資料](#getCSResult)
 
@@ -139,9 +139,9 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 ## <a name="authentication"></a>資安認證
 
 #### <a name="authDefinition"></a>定義
-資安認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
+保護使用者的資料安全，是最重要的事，因此在做所有資料的匯入或匯出操作時，皆需要以符合 HIPAA 規範的方式來執行，而我們所有的服務，皆是建構在 AWS 安全且符合 HIPAA 規範的雲端環境上，關於 AWS 的資安訊息，可參考 [AWS 的 HIPAA 安全及合規架構白皮書](https://d1.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)
 
-身分認證碼的有效期為 4 小時，過期需要重新取得。
+資安認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
 
 #### <a name="authMethod"></a>方法
 Method: `GET`
@@ -173,10 +173,9 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 ## <a name="postPatientInfo"></a>匯入病歷資料
 
 #### <a name="postPIDefinition"></a>定義
-病歷資料可用來做多種經營管理的績效分析，也可依需要使用在滿意度調查與患者關係管理上，若資料為敏感資料，必須在發送前做部分加密處理。
+病歷資料可依需要使用在滿意度調查與患者關係管理上，也可用來做多種經營管理的績效分析。
 
 所有資料皆符合一次性使用原則，不會保存。
-
 
 #### <a name="postPIMethod"></a>方法
 Method: `POST`
@@ -190,8 +189,8 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 token 為先前取得的身分認證碼。
 
 
-#### <a name="postPIData"></a>上傳資料
-上傳資料值為一 JSON 物件，僅包含 patients 鍵值對，其值為一陣列，可包含多筆病歷資料。
+#### <a name="postPIData"></a>匯入資料
+匯入資料值為一 JSON 物件，僅包含 patients 鍵值對，其值為一陣列，可包含多筆病歷資料。
 
 每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷內容。
 
@@ -249,8 +248,8 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 token 為先前取得的身分認證碼。
 
 
-#### <a name="postOData"></a>上傳資料
-上傳看診資料值為一 JSON 物件，僅包含 operation 鍵值對，其值為一陣列，可包含多筆病歷資料。
+#### <a name="postOData"></a>匯入資料
+匯入看診資料值為一 JSON 物件，僅包含 operation 鍵值對，其值為一陣列，可包含多筆病歷資料。
 
 每筆病歷資料皆為一 JSON 物件，必須包含完整的病歷內容。
 
@@ -304,8 +303,8 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 
 token 為先前取得的身分認證碼。
 
-#### <a name="postReviewsData"></a>上傳資料
-上傳資料值為一 JSON 物件，僅包含 reviews 鍵值對，其值為一陣列，可包含多筆評論資料。
+#### <a name="postReviewsData"></a>匯入資料
+匯入資料值為一 JSON 物件，僅包含 reviews 鍵值對，其值為一陣列，可包含多筆評論資料。
 
 每筆評論資料皆為一 JSON 物件，必須包含完整的評論內容。
 
@@ -394,8 +393,8 @@ token 為先前取得的身分認證碼。
 
 review_id 為先前上傳評論資料時取得的評論 id。
 
-#### <a name="getRRData"></a>上傳資料
-取得評論處理結果無上傳資料
+#### <a name="getRRData"></a>匯入資料
+取得評論處理結果無匯入資料
 
 #### <a name="getRRHttpCodes"></a>回應代碼
 取得評論處理結果的回應代碼與其定義如下:
@@ -444,7 +443,7 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 
 token 為先前取得的身分認證碼。
 
-#### <a name="postARData"></a>上傳資料
+#### <a name="postARData"></a>匯入資料
 資料值為一 JSON 物件，僅包含 reminders 鍵值對，其值為一陣列，可包含多筆約診資料。
 
 每筆約診資料皆為一 JSON 物件，必須包含完整的約診內容。
@@ -529,8 +528,8 @@ token 為先前取得的身分認證碼。
 
 reminder_id 為先前上傳約診提醒資料時取得的約診提醒 id。
 
-#### <a name="getARRData"></a>上傳資料
-取得約診病患回覆結果無上傳資料
+#### <a name="getARRData"></a>匯入資料
+取得約診病患回覆結果無匯入資料
 
 #### <a name="getARRHttpCodes"></a>回應代碼
 取得約診病患回覆結果的回應代碼與其定義如下:
@@ -587,8 +586,8 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 
 token 為先前取得的身分認證碼。
 
-#### <a name="getAARData"></a>上傳資料
-取得病患回診分析資料無上傳資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含統計分析的開始與結束月份。
+#### <a name="getAARData"></a>匯入資料
+取得病患回診分析資料的匯入資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含統計分析的開始與結束月份。
 
 例如:
 ```json
@@ -654,8 +653,8 @@ hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用
 
 token 為先前取得的身分認證碼。
 
-#### <a name="getCSData"></a>上傳資料
-取得滿意度分析資料無上傳資料
+#### <a name="getCSData"></a>匯入資料
+取得滿意度分析資料無匯入資料
 
 #### <a name="getCSHttpCodes"></a>回應代碼
 取得滿意度分析資料的回應代碼與其定義如下:
