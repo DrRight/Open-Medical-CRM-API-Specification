@@ -27,7 +27,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 累計超過 5,000 萬則醫療健康評價分析的經驗，取得與 Google 在醫療評價領域技術合作關係，亦為台灣唯一合作之軟體公司。
 
 2017.10：
-聘請[瀛睿律師事務所](http://www.wiseteam.tw)簡榮宗律師擔任法律顧問，守護各個服務環節的適法性。
+<!--聘請[瀛睿律師事務所](http://www.wiseteam.tw)簡榮宗律師擔任法律顧問，守護各個服務環節的適法性。-->
 
 2017.11：
 推出全台首創之醫療精準關懷服務，協助診所業主 e 化經營醫病關係與改善醫療品質。
@@ -36,7 +36,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 服務已超過 10 間大型醫療連鎖體系，榮獲經濟部 2018年破殼而出之企業推薦獎。
 
 2018.11：
-與[瑞恩克勞 Raincloud 公司](https://yaya.raincloud.tw/yayainfo/)技術合作，整合約診管理服務，讓醫療 CRM 解決方案更趨完整。
+<!--與[瑞恩克勞 Raincloud 公司](https://yaya.raincloud.tw/yayainfo/)技術合作，整合約診管理服務，讓醫療 CRM 解決方案更趨完整。-->
 
 2018.12：
 服務至今已超過 20 家醫療體系集團，涵蓋了北中南最大型連鎖牙醫體系以及教學醫院，皆為地區經營績效 Top 3 之領導醫療機構。
@@ -60,9 +60,11 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 
 
 ## API 簡介
-為了提供即時且精準的分析數據，以協助醫療院所與患者溝通，我們開發了醫療精準關懷服務系統，並將此系統內的 API 架構開放出來，希望能透過這份醫療 CRM API 規格文件，讓醫療體系與第三方協力廠商，能夠共同合作，連結成一個醫病溝通的大數據平台，同時也讓台灣醫療環境能夠向雲端與數據化服務的新時代邁進。
+為了提供即時且精準的分析數據，以協助醫療院所做好院內管理與患者關係維繫，我們不停的優化與研發更多的輔助系統與功能，讓我們的醫療精準關懷服務系統，不只是一個線上與線下的評論即時監管系統，更包含了來診病患數據分析、經營成效分析、多分院管理系統等，讓院所擁有醫療體系的健康檢查機制，不管是對內管理或是對外維護病患關係，都有精準且快速的軟體輔助工具與數據來協助業主達成滿意的目標。
 
-本 API 規格是用於描述合作診所或第三方公司(以下簡稱為使用者)做資料介接時，於開發對應功能 API 所需要之設計情境與目標，傳遞或接收資料時之格式文件。
+現在，我們將此系統內的 API 架構開放出來，希望能透過這份開放式醫療 CRM API 規格文件，讓醫療體系與第三方協力廠商，能夠共同合作，連結成一個醫病溝通的大數據平台，同時也讓台灣醫療環境能夠向雲端與數據化服務的新時代邁進。
+
+本 API 規格是用於描述合作醫療院所或第三方公司(以下簡稱為使用者)做資料介接時，於開發對應功能 API 所需要之設計情境與目標，傳遞或接收資料時之格式文件。
 
 使用標準 HTTP 回應代碼進行回應以指示錯誤。
 
@@ -76,13 +78,13 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [參數](#authParams)
 	- [回應代碼](#authHttpCodes)
 	- [回應資料](#authResult)
-- [Facebook粉專評論代理](#FacebookReviewsMonitor)
+- [Facebook 粉專評論代理](#FacebookReviewsMonitor)
 	- [定義](#frmDefinition)
 	- [方法](#frmMethod)
 	- [參數](#frmParams)
 	- [回應代碼](#frmHttpCodes)
 	- [回應資料](#frmResult)
-- [Google商家評論代理](#GoogleReviewsMonitor)
+- [Google 商家評論代理](#GoogleReviewsMonitor)
 	- [定義](#grmDefinition)
 	- [方法](#grmMethod)
 	- [參數](#grmParams)
@@ -151,7 +153,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 ## <a name="authentication"></a>資安認證
 
 #### <a name="authDefinition"></a>定義
-保護使用者的資料安全，是最重要的事，因此在做所有資料的匯入或匯出操作時，皆需要以符合 HIPAA 規範的方式來執行，而我們所有的服務，皆是建構在 AWS 安全且符合 HIPAA 規範的雲端環境上，關於 AWS 的資安訊息，可參考 [AWS 的 HIPAA 安全及合規架構白皮書](https://d1.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)。
+保護使用者的資料安全，是最重要的事，因此不管在做資料的匯入或匯出操作，或是資料的計算與保存時，皆需要以符合 HIPAA 規範的方式來執行，而我們所有的服務，皆是建構在 AWS 安全且符合 HIPAA 規範的雲端環境上，關於 AWS 的資安訊息，可參考 [AWS 的 HIPAA 安全及合規架構白皮書](https://d1.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)。
 
 資安認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
 
@@ -183,10 +185,10 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 ```
 
 
-## <a name="FacebookReviewsMonitor"></a>Facebook粉專評論代理
+## <a name="FacebookReviewsMonitor"></a>Facebook 粉專評論代理
 
 #### <a name="frmDefinition"></a>定義
-Facebook粉專為 Facebook 粉絲專頁的縮寫，透過此 API ，您可將 Facebook 粉專的評論交由 Dr. Right 維護與管理，Dr. Right 的 Facebook 粉專即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為此煩惱。
+Facebook 粉專為 Facebook 粉絲專頁的縮寫，透過此 API ，您可將 Facebook 粉專的評論直接交由 Dr. Right 來維護與管理，Dr. Right 的 Facebook 粉專即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為此煩惱。
 
 #### <a name="frmMethod"></a>方法
 Method: `POST`
@@ -221,7 +223,7 @@ page_token 為使用者的 facebook 粉專的長效型權杖，詳細資訊可�
 
 
 
-## <a name="GoogleReviewsMonitor"></a>Google商家評論代理
+## <a name="GoogleReviewsMonitor"></a>Google 商家評論代理
 
 #### <a name="grmDefinition"></a>定義
 Dr. Right 取得與 Google 在醫療評價領域技術的合作關係，亦為台灣唯一合作的軟體公司，透過 Dr. Right 來管理您的 Google 我的商家，會是您最明智的選擇。
