@@ -76,6 +76,18 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 	- [參數](#authParams)
 	- [回應代碼](#authHttpCodes)
 	- [回應資料](#authResult)
+- [Facebook粉專評論代理](#FacebookReviewsMonitor)
+	- [定義](#frmDefinition)
+	- [方法](#frmMethod)
+	- [參數](#frmParams)
+	- [回應代碼](#frmHttpCodes)
+	- [回應資料](#frmResult)
+- [Google商家評論代理](#GoogleReviewsMonitor)
+	- [定義](#grmDefinition)
+	- [方法](#grmMethod)
+	- [參數](#grmParams)
+	- [回應代碼](#grmHttpCodes)
+	- [回應資料](#grmResult)
 - [匯入病歷資料](#postPatientInfo)
 	- [定義](#postPIDefinition)
 	- [方法](#postPIMethod)
@@ -139,7 +151,7 @@ Dr. Right 為醫病間搭起了一個新橋樑，患者離診後有任何疑問�
 ## <a name="authentication"></a>資安認證
 
 #### <a name="authDefinition"></a>定義
-保護使用者的資料安全，是最重要的事，因此在做所有資料的匯入或匯出操作時，皆需要以符合 HIPAA 規範的方式來執行，而我們所有的服務，皆是建構在 AWS 安全且符合 HIPAA 規範的雲端環境上，關於 AWS 的資安訊息，可參考 [AWS 的 HIPAA 安全及合規架構白皮書](https://d1.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)
+保護使用者的資料安全，是最重要的事，因此在做所有資料的匯入或匯出操作時，皆需要以符合 HIPAA 規範的方式來執行，而我們所有的服務，皆是建構在 AWS 安全且符合 HIPAA 規範的雲端環境上，關於 AWS 的資安訊息，可參考 [AWS 的 HIPAA 安全及合規架構白皮書](https://d1.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)。
 
 資安認證的目的是用來認證使用者的身分，進行所有 API 呼叫時，都必須包含身分認證碼(token)，以確認此次呼叫的合法性。
 
@@ -169,6 +181,86 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
    "token": "sdDEqdw3Rcoje8Rb9265Gyrxfd3dJoevnY64Udrg6TgyHuJwSe34Rt"
 }
 ```
+
+
+## <a name="FacebookReviewsMonitor"></a>Facebook粉專評論代理
+
+#### <a name="frmDefinition"></a>定義
+Facebook粉專為 Facebook 粉絲專頁的縮寫，透過此 API ，您可將 Facebook 粉專的評論交由 Dr. Right 維護與管理，Dr. Right 的 Facebook 粉專即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為此煩惱。
+
+#### <a name="frmMethod"></a>方法
+Method: `POST`
+
+URL: https://HOST/id/{id}/auth_code/{auth_code}/page_id/{page_id}/page_token/{page_token}
+
+#### <a name="frmParams"></a>參數
+id 為使用者所擁有之唯一值，用來代表該單位。
+
+auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使用。
+
+page_id 為使用者的 facebook 粉專的 id。
+
+page_token 為使用者的 facebook 粉專的長效型權杖，詳細資訊可參考 [Facebook 登入](https://developers.facebook.com/docs/facebook-login)中的存取權杖章節。
+
+#### <a name="frmHttpCodes"></a>回應代碼
+回應代碼與其定義如下:
+```
+200: success
+400: bad request
+401: wrong id or auth_code
+405: method not allowed
+```
+
+#### <a name="frmResult"></a>回應資料
+回應資料為一 JSON 物件，僅包含 result 鍵值對，例如:
+```json
+{
+   "result": "OK"
+}
+```
+
+
+
+## <a name="GoogleReviewsMonitor"></a>Google商家評論代理
+
+#### <a name="grmDefinition"></a>定義
+Dr. Right 取得與 Google 在醫療評價領域技術的合作關係，亦為台灣唯一合作的軟體公司，透過 Dr. Right 來管理您的 Google 我的商家，會是您最明智的選擇。
+
+使用此 API 前，請先將 Dr. Right 加入您的商家管理者後，再透過此 API 將 Google 我的商家 與 Dr. Right 做綁定，Dr. Right 的 Google 商家即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓使用者不用在為此煩惱。
+
+#### <a name="grmMethod"></a>方法
+Method: `POST`
+
+URL: https://HOST/id/{id}/auth_code/{auth_code}/gmb_id/{gmb_id}
+
+#### <a name="grmParams"></a>參數
+id 為使用者所擁有之唯一值，用來代表該單位。
+
+auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使用。
+
+gmb_id 為使用者的 Google 商家的 location id。
+
+#### <a name="grmHttpCodes"></a>回應代碼
+回應代碼與其定義如下:
+```
+200: success
+400: bad request
+401: wrong id or auth_code
+405: method not allowed
+```
+
+#### <a name="grmResult"></a>回應資料
+回應資料為一 JSON 物件，僅包含 result 鍵值對，例如:
+```json
+{
+   "result": "OK"
+}
+```
+
+
+
+
+
 
 ## <a name="postPatientInfo"></a>匯入病歷資料
 
@@ -206,7 +298,10 @@ token 為先前取得的身分認證碼。
 		"phone" : "0912345678",
 		"first_visit_date" : "2019-07-12",
 		"visit_times" : "5",
-		"doctor_name" : "Roger Kingdom"
+		"doctor_name" : "Roger Kingdom",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	}
    ]
 }
@@ -262,7 +357,10 @@ token 為先前取得的身分認證碼。
 		"name" : "Cindy Pool",
 		"check_in_datetime" : "2021-07-29 10:23",
 		"check_out_datetime" : "2021-07-29 11:11",
-		"doctor_name" : "Roger Kingdom"
+		"doctor_name" : "Roger Kingdom",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	}
    ]
 }
@@ -373,11 +471,7 @@ id 為未來查詢時使用，請妥善保存。
 ## <a name="getReviewResult"></a>匯出評論處理結果
 
 #### <a name="getRRDefinition"></a>定義
-上傳評論資料後，以此 API 取得後續的處理狀態與結果。
-
-評論的來源若為線上，處理時間為 48 小時，上傳評論 48 小時後，可取得包含專業的評論回覆內容的結果。
-
-評論的來源若為線下，處理時間為 48 小時至 72 小時，處理完成後，可取得與病患聯繫的狀況與處理結果。
+上傳評論資料後，在處理成效最好的黃金 48 小時內，隨時都能透過此 API 取得評論的處理狀態與結果。
 
 所有資料皆依據與使用者約定方式處理。
 
@@ -429,7 +523,7 @@ review_id 為先前上傳評論資料時取得的評論 id。
 #### <a name="postARDefinition"></a>定義
 約診提醒的作用是用來善意的提醒病患，其下次看診當天的報到時間、地點與看診時應注意的事項等資訊。
 
-約診提醒可以透過 Dr. Right 的簡訊服務來發送。
+約診提醒可以透過簡訊、Line、Email 與 APP 等多種全面性的管道來通知病患。
 
 所有資料皆依據與使用者約定方式處理。
 
@@ -458,7 +552,11 @@ token 為先前取得的身分認證碼。
 		"appointment_datetime" : "2021-08-13 19:00",
 		"send_msg_datetime" : "2021-08-12 09:30",
 		"doctor_name" : "李文政",
-		"special_reminder" : "請攜帶矯正費用 15,000 圓"
+		"special_reminder" : "請攜帶矯正費用 15,000 圓",
+		"notification_method" : "1",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	},
 	{
 		"patient" : "林語文",
@@ -466,7 +564,11 @@ token 為先前取得的身分認證碼。
 		"appointment_datetime" : "2021-08-13 20:00",
 		"send_msg_datetime" : "2021-08-12 09:30",
 		"doctor_name" : "黃清清",
-		"special_reminder" : ""
+		"special_reminder" : "",
+		"notification_method" : "2",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	}
    ]
 }
@@ -627,7 +729,10 @@ token 為先前取得的身分認證碼。
 		"黃凱" : "53.2",
 		"張藝雯" : "66.4",
 		"郭興岑" : "41.1",
-		"談艾樺" : "39.2"
+		"談艾樺" : "39.2",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	}
 }
 ```
@@ -693,7 +798,10 @@ token 為先前取得的身分認證碼。
 		"黃凱" : "59.9",
 		"張藝雯" : "69.5",
 		"郭興岑" : "45.2",
-		"談艾樺" : "37.8"
+		"談艾樺" : "37.8",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
 	}
 }
 ```
