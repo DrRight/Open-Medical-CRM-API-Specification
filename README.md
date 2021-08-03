@@ -188,7 +188,7 @@ auth_code 為使用者所擁有之唯一值，用來取得身分認證碼時使�
 ## <a name="FacebookReviewsMonitor"></a>Facebook 粉專評論代理
 
 #### <a name="frmDefinition"></a>定義
-Facebook 粉專為 Facebook 粉絲專頁的縮寫，透過此 API ，您可將 Facebook 粉專的評論直接交由 Dr. Right 來維護與管理，Dr. Right 的 Facebook 粉專即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為此煩惱。
+Facebook 粉專為 Facebook 粉絲專頁的縮寫，透過此 API ，您可將 Facebook 粉專的評論直接交由 Dr. Right 來維護與管理，Dr. Right 的 Facebook 粉專即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為如何回覆評論而煩惱。
 
 #### <a name="frmMethod"></a>方法
 Method: `POST`
@@ -228,7 +228,7 @@ page_token 為使用者的 facebook 粉專的長效型權杖，詳細資訊可�
 #### <a name="grmDefinition"></a>定義
 Dr. Right 取得與 Google 在醫療評價領域技術的合作關係，亦為台灣唯一合作的軟體公司，透過 Dr. Right 來管理您的 Google 我的商家，會是您最明智的選擇。
 
-使用此 API 前，請先將 Dr. Right 加入您的商家管理者後，再透過此 API 將 Google 我的商家 與 Dr. Right 做綁定，Dr. Right 的 Google 商家即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓使用者不用在為此煩惱。
+使用此 API 前，請先將 Dr. Right 加入您的商家管理者後，再透過此 API 將 Google 我的商家 與 Dr. Right 做綁定，Dr. Right 的 Google 商家即時監控系統，在評論發生的當下，就會即時收到並及時掌握與立即處理，讓您不用在為如何回覆評論而煩惱。
 
 #### <a name="grmMethod"></a>方法
 Method: `POST`
