@@ -130,14 +130,20 @@ Since 2016 ，[Dr. Right](https://www.drright.club) 是由數據分析師、資�
 	- [匯入資料](#getAARData)
 	- [回應代碼](#getAARHttpCodes)
 	- [回應資料](#getAARResult)
-- [匯出滿意度分析資料](#getClinicSatisfaction)
+- [匯出滿意度分項分析資料](#getClinicSatisfaction)
 	- [定義](#getCSDefinition)
 	- [方法](#getCSMethod)
 	- [參數](#getCSParams)
 	- [匯入資料](#getCSData)
 	- [回應代碼](#getCSHttpCodes)
 	- [回應資料](#getCSResult)
-
+- [匯出滿意度統計資料](#getClinicStatisticSatisfaction)
+	- [定義](#getCSSDefinition)
+	- [方法](#getCSSMethod)
+	- [參數](#getCSSParams)
+	- [匯入資料](#getCSSData)
+	- [回應代碼](#getCSSHttpCodes)
+	- [回應資料](#getCSSResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -757,7 +763,7 @@ token 為先前取得的身分認證碼。
 
 
 
-## <a name="getClinicSatisfaction"></a>匯出滿意度分析資料
+## <a name="getClinicSatisfaction"></a>匯出滿意度分項分析資料
 
 #### <a name="getCSDefinition"></a>定義
 從病患的看診回饋與約診的回覆狀況中，可以抽絲剝繭了解到病患對診所或是各個醫師的認同狀態。
@@ -824,6 +830,69 @@ token 為先前取得的身分認證碼。
 }
 ```
 
+## <a name="getClinicStatisticSatisfaction"></a>匯出滿意度統計資料
+
+#### <a name="getCSSDefinition"></a>定義
+經過時間累積的病患看診回饋，透過統計方式以圖表加以呈現，可以看出長期的滿意度變化，並作為經營診所的重要參考指標。
+
+我們依據使用者所上傳的各項回饋資料，在搭配我們開發的滿意度權重與平衡最佳化演算法做分析，就可以得到診所整體的滿意度歷程統計資料。
+
+#### <a name="getCSSMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/clinic_statistic_satisfaction/result/
+
+#### <a name="getCSSParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="getCSSData"></a>匯入資料
+取得滿意度統計資料的匯入資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含統計分析的開始與結束月份。
+
+例如:
+```json
+{
+   "period" : {
+		"start" : "2019/07",
+		"end" : "2019/12",
+		"reserved_1": "TBD"
+	}
+}
+```
+
+#### <a name="getCSSHttpCodes"></a>回應代碼
+取得滿意度統計資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getCSSResult"></a>回應資料
+取得滿意度統計資料的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此診所滿意度歷程分項資料。
+
+例如:
+```json
+{
+   "result" : {
+   		"avg" : "4.96",
+		"2019/07" : "4.91",
+		"2019/08" : "4.98",
+		"2019/09" : "4.96",
+		"2019/10" : "4.97",
+		"2019/11" : "4.93",
+		"2019/12" : "4.92",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
+	}
+}
+```
+
+
 ## 開發人員
 此專案由 [Jeff Chang](https://www.linkedin.com/in/jeff-chang-9074b2163/) 負責開發維護
 
@@ -832,6 +901,7 @@ token 為先前取得的身分認證碼。
 版本 | 日期 | 注解
 ---|:---|:---
 1.0.0   | 2021-07-30 | Open Medical CRM API 規格首次釋出
+1.0.1   | 2021-10-30 | 增加匯出滿意度統計資料相關 API
 
 
 
