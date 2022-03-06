@@ -1,6 +1,6 @@
 # Dr. Right Open Medical CRM API Specification
 
-#### Version 1.0.0
+#### Version 1.0.2
 
 本文件根據 [The Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) 進行授權。
 
@@ -144,6 +144,13 @@ Since 2016 ，[Dr. Right](https://www.drright.club) 是由數據分析師、資�
 	- [匯入資料](#getCSSData)
 	- [回應代碼](#getCSSHttpCodes)
 	- [回應資料](#getCSSResult)
+- [匯出客訴率統計資料](#getClinicStatisticComplaintRate)
+	- [定義](#getCSCRDefinition)
+	- [方法](#getCSCRMethod)
+	- [參數](#getCSCRParams)
+	- [匯入資料](#getCSCRData)
+	- [回應代碼](#getCSCRHttpCodes)
+	- [回應資料](#getCSCRResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -893,6 +900,71 @@ token 為先前取得的身分認證碼。
 ```
 
 
+## <a name="getClinicStatisticComplaintRate"></a>匯出客訴率統計資料
+
+#### <a name="getCSCRDefinition"></a>定義
+經過時間累積的病患看診回饋中的客訴率數據，透過統計方式以圖表加以呈現，可以看出長期的客訴趨勢變化，並作為經營診所的重要參考指標。
+
+我們依據使用者所上傳的各項回饋資料，以整體客訴數據依據回饋狀態做分析，就可以得到診所的客訴率資料。
+
+#### <a name="getCSCRMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/clinic_statistic_complaint_rate/result/
+
+#### <a name="getCSCRParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="getCSCRData"></a>匯入資料
+取得客訴率統計資料的匯入資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含統計分析的開始與結束月份。
+
+例如:
+```json
+{
+   "period" : {
+		"start" : "2021/07",
+		"end" : "2021/12",
+		"reserved_1": "TBD"
+	}
+}
+```
+
+#### <a name="getCSCRHttpCodes"></a>回應代碼
+取得客訴率統計資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getCSCRResult"></a>回應資料
+取得客訴率統計資料的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此診所客訴率分項資料。
+
+例如:
+```json
+{
+   "result" : {
+   		"avg" : "1.35",
+		"2021/07" : "1.70",
+		"2021/08" : "1.65",
+		"2021/09" : "1.31",
+		"2021/10" : "1.01",
+		"2021/11" : "1.21",
+		"2021/12" : "0.92",
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
+	}
+}
+```
+
+
+
+
 ## 開發人員
 此專案由 [Jeff Chang](https://www.linkedin.com/in/jeff-chang-9074b2163/) 負責開發維護
 
@@ -902,6 +974,7 @@ token 為先前取得的身分認證碼。
 ---|:---|:---
 1.0.0   | 2021-07-30 | Open Medical CRM API 規格首次釋出
 1.0.1   | 2021-10-30 | 增加匯出滿意度統計資料相關 API
+1.0.2   | 2022-03-06 | 增加匯出客訴率統計資料相關 API
 
 
 
