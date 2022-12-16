@@ -1034,7 +1034,7 @@ token 為先前取得的身分認證碼。
 
 
 ## 開發人員
-此專案由 [Jeff Chang](https://www.linkedin.com/in/jeff-chang-9074b2163/) 負責開發維護
+此專案由 [Jeff Chang](https://www.linkedin.com/in/jeff-chang-9074b2163/) 負責開發維護，或參閱[部落格](https://medium.com/@jeffchang64)
 
 ## <a name="revisionHistory"></a>附錄 A: 修訂歷史
 
