@@ -158,6 +158,13 @@ Since 2016 ，[Dr. Right](https://www.drright.club) 是由數據分析師、資�
 	- [匯入資料](#getCSCNData)
 	- [回應代碼](#getCSCNHttpCodes)
 	- [回應資料](#getCSCNResult)
+- [匯出忠誠患者數據歷年分項資料](#getClinicStatisticLoyalPatientNum)
+	- [定義](#getCSLPNDefinition)
+	- [方法](#getCSLPNMethod)
+	- [參數](#getCSLPNParams)
+	- [匯入資料](#getCSLPNData)
+	- [回應代碼](#getCSLPNHttpCodes)
+	- [回應資料](#getCSLPNResult)
 - [附錄 A: 修訂歷史](#revisionHistory)
 
 
@@ -1031,7 +1038,65 @@ token 為先前取得的身分認證碼。
 }
 ```
 
+## <a name="getClinicStatisticLoyalPatientNum"></a>匯出忠誠患者數據歷年分項資料
 
+#### <a name="getCSLPNDefinition"></a>定義
+忠誠患者數，顧名思義，代表診所的所有來診患者人數中，其中有多少數量是因為對於診所的服務感受良好而願意持續複診。
+從每年的數量與比率變化，可以清楚看出診所的營運狀況，也是最實際反映診所服務品質的指標之一。
+我們依據使用者所上傳的各項病患來診資料，彙整出忠誠患者數據歷年分項資料，提供給診所經營者參考。
+
+#### <a name="getCSLPNMethod"></a>方法
+Method: `GET`
+
+URL: https://HOST/hospital/{hosp_id}/token/{token}/clinic_statistic_complaint_num/result/
+
+#### <a name="getCSLPNParams"></a>參數
+hosp_id 為該病歷資料所保有之診所 id，需要先行定義，可使用多種格式，例如健保署醫事代碼。
+
+token 為先前取得的身分認證碼。
+
+#### <a name="getCSLPNData"></a>匯入資料
+取得忠誠患者數據歷年分項資料的匯入資料，為一 JSON 物件，僅包含 period 鍵值對，其值為一 JSON 物件，包含分析資料的開始與結束年份。
+
+例如:
+```json
+{
+   "period" : {
+		"start" : "2018",
+		"end" : "2022",
+		"reserved_1": "TBD"
+	}
+}
+```
+
+#### <a name="getCSLPNHttpCodes"></a>回應代碼
+取得忠誠患者數據歷年分項資料的回應代碼與其定義如下:
+```
+201: success
+400: bad request
+401: unauthorized
+404: wrong hosp_id
+405: method not allowed
+```
+
+#### <a name="getCSLPNResult"></a>回應資料
+取得忠誠患者數據歷年分項資料的回應資料，為一 JSON 物件，僅包含 result 鍵值對，其值為一 JSON 物件，包含此診所各年度忠誠患者數據分項資料。
+
+例如:
+```json
+{
+   "result" : {
+   		"2022" : {"TTLPT":17983, "LYLPT":5223, "reserved_1":"TBD"},
+		"2021" : {"TTLPT":14766, "LYLPT":4890, "reserved_1":"TBD"},
+		"2020" : {"TTLPT":12655, "LYLPT":4129, "reserved_1":"TBD"},
+		"2019" : {"TTLPT":11223, "LYLPT":3778, "reserved_1":"TBD"},
+		"2018" : {"TTLPT":10121, "LYLPT":2122, "reserved_1":"TBD"},
+		"reserved_1": "TBD",
+		"reserved_2": "TBD",
+		"reserved_3": "TBD",
+	}
+}
+```
 
 ## 開發人員
 此專案由 [Jeff Chang](https://www.linkedin.com/in/jeff-chang-9074b2163/) 負責開發維護，或參閱[部落格](https://medium.com/@jeffchang64)
